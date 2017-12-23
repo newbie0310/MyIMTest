@@ -84,17 +84,12 @@ public class UserModel extends BaseModel {
 
     /**
      * 使用短信验证码注册
-     * @param phoneNumber
+//     * @param phoneNumber
      * @param username
      * @param password
      * @param pwdagain
-     * @param listener
      */
-    public void registerByPhone(String phoneNumber,String username, String password, String pwdagain, final LogInListener listener){
-        if (TextUtils.isEmpty(phoneNumber)){
-            listener.done(null, new BmobException(CODE_NULL, "请填写手机号码！"));
-            return;
-        }
+    public void registerByPhone(String phoneNumber,String username, String password, String pwdagain,String smsCode,final LogInListener listener){
         if (TextUtils.isEmpty(username)) {
             listener.done(null, new BmobException(CODE_NULL, "请填写用户名"));
             return;
@@ -115,24 +110,18 @@ public class UserModel extends BaseModel {
         user.setMobilePhoneNumber(phoneNumber);
         user.setUsername(username);
         user.setPassword(password);
-       user.signOrLogin("验证码", new SaveListener<User>() {
-           @Override
-           public void done(User user, BmobException e) {
-               if (e == null){
-                   listener.done(getCurrentUser(), null);
-               }else {
-                   listener.done(user, e);
-               }
-           }
-       });
+        user.signUp(new SaveListener<User>() {
+            @Override
+            public void done(User user, BmobException e) {
+                if (e == null) {
+                    listener.done(null, null);
+                } else {
+                    listener.done(null, e);
+                }
+            }
+        });
     }
 
-    /**
-     * 短信验证码
-     */
-    public void sengSms(){
-        BmobSMS sms = new BmobSMS();
-    }
 
     /**
      * TODO 用户管理：2.2、使用登录
