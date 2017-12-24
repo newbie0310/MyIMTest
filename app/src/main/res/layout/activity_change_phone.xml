@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_bg"
+    android:orientation="vertical" >
+
+    <include android:id="@+id/ll" layout="@layout/include_navi"/>
+
+    <LinearLayout
+        android:id="@+id/reg_ll_send_sms"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:paddingEnd="30dp"
+            android:paddingStart="50dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel">
+
+                <EditText
+                    android:id="@+id/et_change_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:hint="@string/phone_number"
+                    android:textSize="13sp"/>
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:paddingEnd="30dp"
+            android:paddingStart="50dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel">
+
+                <EditText
+                    android:id="@+id/et_change_new_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:hint="@string/phone_new_number"
+                    android:textSize="13sp"/>
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingEnd="30dp"
+            android:paddingStart="50dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:theme="@style/TextLabel">
+
+                <EditText
+                    android:id="@+id/et_change_sms"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:hint="@string/sms"
+                    android:textSize="13sp"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/change_send_smsCode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/send_sms" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_change_ok"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            style="@style/style_button_logout"
+            android:focusableInTouchMode="false"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:stateListAnimator="@drawable/state_list_animator_z"
+            android:text="@string/ok"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

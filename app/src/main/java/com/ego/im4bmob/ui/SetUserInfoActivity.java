@@ -102,7 +102,6 @@ public class SetUserInfoActivity extends ParentWithNaviActivity {
                     mTvUsername.setFocusableInTouchMode(false);
                     imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
-                    Log.d("editUserName",mUserNameEdit.getText().toString() + "*******************************************************");
                     UserModel.getInstance().editUserName(mTvUsername.getText().toString());
                 }
             }

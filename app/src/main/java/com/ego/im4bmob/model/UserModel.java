@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ego.im4bmob.ui.RegActivity;
 import com.ego.im4bmob.ui.SetUserInfoActivity;
 import com.orhanobut.logger.Logger;
 
@@ -25,8 +26,10 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.LogInListener;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+
 
 /**
  * @author :smile
@@ -34,6 +37,8 @@ import cn.bmob.v3.listener.UpdateListener;
  * @date :2016-01-22-18:09
  */
 public class UserModel extends BaseModel {
+
+    public static boolean isTrue = false;
 
     private static UserModel ourInstance = new UserModel();
 
@@ -330,6 +335,10 @@ public class UserModel extends BaseModel {
         friend.delete(f.getObjectId(), listener);
     }
 
+    /**
+     * TODO 信息编辑:10.1 修改用户名
+     * @param newName
+     */
     public void editUserName(String newName){
         Log.i("editUserName",newName);
         User user = new User();
@@ -346,4 +355,87 @@ public class UserModel extends BaseModel {
             }
         });
     }
+
+    /**
+     * TODO 信息编辑:10.2 发送验证码
+     * @param phone
+     */
+    public void sendSms(String phone){
+        BmobSMS.requestSMSCode(phone, "重置密码模板", new QueryListener<Integer>() {
+            @Override
+            public void done(Integer integer, BmobException e) {
+                if (e == null){
+                    Toast.makeText(getContext(),"验证码已发送，请注意查收" ,Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(),"失败：" + e,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    /**
+     * TODO 信息编辑：10.3 验证短信验证码
+     * @param phone
+     * @param code
+     * @return
+     */
+    public boolean checkSms(String phone,String code){
+
+        BmobSMS.verifySmsCode(phone.toString(),code, new UpdateListener(){
+            @Override
+            public void done(BmobException e) {
+                if (e == null){
+                    isTrue = true;
+                    Log.i("btn_change_ok","验证码正确");
+                }else {
+                    Log.i("checkSmsCode",e + "");
+                    Toast.makeText(getContext(),"请输入正确的验证码" + e,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        return isTrue;
+    }
+
+    /**
+     * 修改绑定手机
+     * @param newPhone
+     */
+    public void changePhoneNumber(String newPhone){
+        User user = new User();
+        user.setMobilePhoneNumber(newPhone);
+        BmobUser bmobUser = BmobUser.getCurrentUser();
+        user.update(bmobUser.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null){
+                    Toast.makeText(getContext(),"更新成功！",Toast.LENGTH_SHORT).show();
+                    isTrue = true;
+                }else {
+                    Toast.makeText(getContext(),"更新手机号码失败！" + e,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    /**
+     * 修改密码
+     * @param newPassword
+     */
+    public void changePassword(String newPassword){
+        User user = new User();
+        user.setPassword(newPassword);
+        BmobUser bmobUser = BmobUser.getCurrentUser();
+        user.update(bmobUser.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null){
+                    Toast.makeText(getContext(),"更新成功！",Toast.LENGTH_SHORT).show();
+                    isTrue = true;
+                }else {
+                    Toast.makeText(getContext(),"更新手机号码失败！" + e,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
 }

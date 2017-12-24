@@ -39,6 +39,7 @@
                 android:focusableInTouchMode="false"
                 android:layout_margin="@dimen/activity_horizontal_margin"
                 android:text="@string/app_name"
+                android:background="@null"
                 android:textColor="@color/colorPrimary"
                 android:textSize="25sp"/>
 

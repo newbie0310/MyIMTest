@@ -155,7 +155,9 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ui.SetUserInfoActivity"></activity>
+        <activity android:name=".ui.SetUserInfoActivity" />
+        <activity android:name=".ui.ChangePhoneActivity" />
+        <activity android:name=".ui.ChangPwActivity"></activity>
     </application>
 
 </manifest>

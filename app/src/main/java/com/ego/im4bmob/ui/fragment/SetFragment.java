@@ -32,6 +32,8 @@ import com.ego.im4bmob.bean.User;
 import com.ego.im4bmob.event.RefreshEvent;
 import com.ego.im4bmob.model.UserModel;
 import com.ego.im4bmob.mvp.bean.Installation;
+import com.ego.im4bmob.ui.ChangPwActivity;
+import com.ego.im4bmob.ui.ChangePhoneActivity;
 import com.ego.im4bmob.ui.LogActivity;
 import com.ego.im4bmob.ui.SetUserInfoActivity;
 import com.ego.im4bmob.ui.image_selector.MultiImageSelector;
@@ -83,12 +85,25 @@ public class SetFragment extends ParentWithNaviFragment {
     private void initSettingData(){
         Setting userInfo = new Setting();
         userInfo.setSetImgId(R.drawable.setting_user_img);
-        userInfo.setSettingInfo("个人数据");
+        userInfo.setSettingInfo("基本数据");
         mSettingList.add(userInfo);
+        Setting phoneEdit = new Setting();
+        phoneEdit.setSetImgId(R.drawable.phone_number);
+        phoneEdit.setSettingInfo("修改手机");
+        mSettingList.add(phoneEdit);
         Setting dataInfo = new Setting();
         dataInfo.setSetImgId(R.drawable.data_info);
         dataInfo.setSettingInfo("详细信息设置");
         mSettingList.add(dataInfo);
+        Setting changePassword = new Setting();
+        changePassword.setSetImgId(R.drawable.change_password);
+        changePassword.setSettingInfo("修改密码");
+        mSettingList.add(changePassword);
+        Setting appTheme = new Setting();
+        appTheme.setSetImgId(R.drawable.theme);
+        appTheme.setSettingInfo("更改主题");
+        mSettingList.add(appTheme);
+
     }
 
     @Override
@@ -123,8 +138,10 @@ public class SetFragment extends ParentWithNaviFragment {
                         startActivity(new Intent(getActivity(), SetUserInfoActivity.class));
                         break;
                     case 1:
-                        Toast.makeText(getActivity(),"你点击了第2个条目",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getActivity(), ChangePhoneActivity.class));
                         break;
+                    case 3:
+                        startActivity(new Intent(getActivity(), ChangPwActivity.class));
                 }
             }
         });
