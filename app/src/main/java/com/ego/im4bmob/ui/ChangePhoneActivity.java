@@ -13,13 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ego.im4bmob.R;
+import com.ego.im4bmob.base.ParentWithNaviActivity;
 import com.ego.im4bmob.model.UserModel;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ChangePhoneActivity extends AppCompatActivity {
+public class ChangePhoneActivity extends ParentWithNaviActivity {
 
     @Bind(R.id.v_top)
     View mVTop;
@@ -46,6 +47,7 @@ public class ChangePhoneActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_phone);
         ButterKnife.bind(this);
+        initNaviView();
     }
 
     @OnClick({R.id.change_send_smsCode, R.id.btn_change_ok})
@@ -64,5 +66,10 @@ public class ChangePhoneActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    @Override
+    protected String title() {
+        return "修改手机";
     }
 }

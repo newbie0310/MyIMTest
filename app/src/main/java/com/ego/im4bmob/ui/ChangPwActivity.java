@@ -11,13 +11,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ego.im4bmob.R;
+import com.ego.im4bmob.base.ParentWithNaviActivity;
 import com.ego.im4bmob.model.UserModel;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ChangPwActivity extends AppCompatActivity {
+public class ChangPwActivity extends ParentWithNaviActivity {
 
     @Bind(R.id.v_top)
     View mVTop;
@@ -44,6 +45,7 @@ public class ChangPwActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chang_pw);
         ButterKnife.bind(this);
+        initNaviView();
     }
 
     @OnClick({R.id.change_send_smsCode, R.id.btn_change_ok})
@@ -61,5 +63,10 @@ public class ChangPwActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    @Override
+    protected String title() {
+        return "修改密码";
     }
 }
