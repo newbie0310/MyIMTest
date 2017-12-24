@@ -43,7 +43,7 @@
 
 
     <string name="login_success">登录成功</string>
-    <string name="Username">用户名</string>
+    <string name="Username">用户名/手机号</string>
     <string name="Password">密码</string>
     <string name="forgot_your_password">忘记密码？</string>
     <string name="find_your_password">找回密码</string>

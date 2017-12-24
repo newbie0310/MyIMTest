@@ -10,6 +10,7 @@
 
      
 
+
     <!-- TODO 1.4、配置IM SDK需要的权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 监听网络的变化 -->
@@ -68,6 +69,7 @@
 
          
 
+
         <!-- TODO 集成：1.5、配置IM SDK需要的广播和服务 -->
         <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver">
             <intent-filter>
@@ -119,7 +121,7 @@
         <!-- 用于进程保活 -->
         <service
             android:name="cn.bmob.push.lib.service.PushNotifyService"
-            android:process=":bmobpush"></service>
+            android:process=":bmobpush" />
 
         <receiver android:name="cn.bmob.push.PushReceiver">
             <intent-filter>
@@ -153,6 +155,7 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".ui.SetUserInfoActivity"></activity>
     </application>
 
 </manifest>

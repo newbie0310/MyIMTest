@@ -2,8 +2,10 @@ package com.ego.im4bmob.model;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.ego.im4bmob.ui.SetUserInfoActivity;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -83,7 +85,7 @@ public class UserModel extends BaseModel {
     }
 
     /**
-     * 使用短信验证码注册
+     * TODO 用户管理：2.2.2使用短信验证码注册
 //     * @param phoneNumber
      * @param username
      * @param password
@@ -326,5 +328,22 @@ public class UserModel extends BaseModel {
     public void deleteFriend(Friend f, UpdateListener listener) {
         Friend friend = new Friend();
         friend.delete(f.getObjectId(), listener);
+    }
+
+    public void editUserName(String newName){
+        Log.i("editUserName",newName);
+        User user = new User();
+        user.setUsername(newName);
+        BmobUser bmobUser = BmobUser.getCurrentUser();
+        user.update(bmobUser.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null){
+                    Toast.makeText(getContext(),"更新成功！",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(),"更新用户名失败！" + e,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
