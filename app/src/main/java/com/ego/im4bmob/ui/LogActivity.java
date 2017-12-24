@@ -105,7 +105,7 @@ public class LogActivity extends AppCompatActivity {
 
                 break;
             case R.id.log_tv_forgot:
-
+                startActivity(new Intent(this,ChangPwActivity.class));
                 break;
         }
     }

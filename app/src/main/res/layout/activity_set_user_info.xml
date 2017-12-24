@@ -53,13 +53,7 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_logout"
-            style="@style/style_button_logout"
-            android:layout_width="fill_parent"
-            android:layout_height="45dp"
-            android:layout_margin="@dimen/activity_vertical_margin"
-            android:text="@string/logout"/>
+
     </LinearLayout>
 
 </LinearLayout>

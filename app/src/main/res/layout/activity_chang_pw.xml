@@ -52,7 +52,7 @@
                     android:id="@+id/et_new_pw"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/phone_new_number"
+                    android:hint="@string/new_password"
                     android:textSize="13sp"/>
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>

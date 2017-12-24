@@ -1,8 +1,6 @@
 package com.ego.im4bmob.ui;
 
-import android.app.ProgressDialog;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -60,7 +58,6 @@ public class ChangePhoneActivity extends ParentWithNaviActivity {
                 Toast.makeText(this,"正在更新手机号码，请稍后...",Toast.LENGTH_SHORT).show();
                 UserModel.getInstance().checkSms(mChangePhone.getText().toString(),mChangeSms.getText().toString());
                 if (UserModel.isTrue){
-                    Log.i("btn_change_ok","if被执行了");
                     UserModel.getInstance().changePhoneNumber(mNewPhone.getText().toString());
                     this.finish();
                 }

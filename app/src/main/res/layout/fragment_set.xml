@@ -7,11 +7,67 @@
 
     <include layout="@layout/include_navi"/>
 
+    <LinearLayout
+        android:id="@+id/set_ll"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/civ_avatar"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:src="@mipmap/icon_message_press"
+            app:civ_border_color="#00FFFFFF"
+            app:civ_border_width="1dp"/>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_username"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:text="@string/app_name"
+                android:background="@null"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25sp"/>
+
+            <CheckBox
+                android:id="@+id/ck_user_name"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="5dp"
+                android:layout_gravity="center_vertical"
+                android:button="@drawable/edit_selector"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/lv_set"
+        android:layout_weight="9"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:visibility="visible"/>
 
+    <Button
+        android:id="@+id/btn_logout"
+        style="@style/style_button_logout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:text="@string/logout"/>
 
 </LinearLayout>

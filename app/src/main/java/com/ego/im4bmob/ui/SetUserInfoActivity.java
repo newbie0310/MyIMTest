@@ -64,8 +64,6 @@ public class SetUserInfoActivity extends ParentWithNaviActivity {
     TextView mTvTitle;
     @Bind(R.id.tv_right)
     TextView mTvRight;
-    @Bind(R.id.btn_logout)
-    Button mBtnLogout;
     @Bind(R.id.civ_avatar)
     CircleImageView mCivAvatar;
     @Bind(R.id.tv_username)
@@ -112,16 +110,13 @@ public class SetUserInfoActivity extends ParentWithNaviActivity {
     protected String title() {
         return "个人资料";
     }
-    @OnClick({R.id.civ_avatar, R.id.btn_logout,R.id.tv_username})
+    @OnClick({R.id.civ_avatar,R.id.tv_username})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.civ_avatar:
                 //TODO 修改头像
 
                 select();
-                break;
-            case R.id.btn_logout:
-                modifyInstallationUser();
                 break;
             case R.id.tv_username:
                 break;
@@ -196,9 +191,6 @@ public class SetUserInfoActivity extends ParentWithNaviActivity {
                             Manifest.permission_group.CAMERA},
                     REQUEST_READ_EXTERNAL_STORAGE);
         }
-
-
-
 
     }
 
