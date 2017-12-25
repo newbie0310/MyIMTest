@@ -32,6 +32,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/phone_number"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:textSize="13sp"/>
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
@@ -52,6 +54,7 @@
                     android:id="@+id/et_new_pw"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="textPassword"
                     android:hint="@string/new_password"
                     android:textSize="13sp"/>
             </android.support.design.widget.TextInputLayout>

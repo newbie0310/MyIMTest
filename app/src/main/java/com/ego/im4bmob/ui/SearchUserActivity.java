@@ -88,6 +88,9 @@ public class SearchUserActivity extends ParentWithNaviActivity {
         query();
     }
 
+    /**
+     * 查询好友
+     */
     public void query() {
         String name = et_find_name.getText().toString();
         if (TextUtils.isEmpty(name)) {

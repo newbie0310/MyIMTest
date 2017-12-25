@@ -2,6 +2,7 @@ package com.ego.im4bmob.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +39,7 @@ public class ChangPwActivity extends ParentWithNaviActivity {
     Button mSendSms;
     @Bind(R.id.btn_change_ok)
     Button mChangeOk;
+    private String phone;
 
 
     @Override
@@ -46,20 +48,31 @@ public class ChangPwActivity extends ParentWithNaviActivity {
         setContentView(R.layout.activity_chang_pw);
         ButterKnife.bind(this);
         initNaviView();
+
+        phone = UserModel.getInstance().getCurrentUser().getMobilePhoneNumber();
+        mChangePhone.setText(phone);
     }
 
     @OnClick({R.id.change_send_smsCode, R.id.btn_change_ok})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.change_send_smsCode:
-                UserModel.getInstance().sendSms(mChangePhone.getText().toString());
+                UserModel.getInstance().sendSms(phone);
                 break;
             case R.id.btn_change_ok:
-                Toast.makeText(this,"正在更新密码，请稍后...",Toast.LENGTH_SHORT).show();
-                UserModel.getInstance().checkSms(mChangePhone.getText().toString(),mChangeSms.getText().toString());
-                if (UserModel.isTrue){
-                    UserModel.getInstance().changePassword(mNewPhone.getText().toString());
-                    this.finish();
+                if (TextUtils.isEmpty(mNewPhone.getText().toString())){
+                    Toast.makeText(this,"手机号码不能为空！",Toast.LENGTH_SHORT).show();
+                    break;
+                }else if (TextUtils.isEmpty(mChangeSms.getText().toString())) {
+                    Toast.makeText(this, "请输入验证码！", Toast.LENGTH_SHORT).show();
+                    break;
+                }else {
+                    Toast.makeText(this,"正在更新密码，请稍后...",Toast.LENGTH_SHORT).show();
+                    UserModel.getInstance().checkSms(phone,mChangeSms.getText().toString());
+                    if (UserModel.isTrue){
+                        UserModel.getInstance().changePassword(mNewPhone.getText().toString());
+                        this.finish();
+                    }
                 }
                 break;
         }

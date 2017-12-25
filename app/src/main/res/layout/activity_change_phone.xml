@@ -32,6 +32,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:hint="@string/phone_number"
                     android:textSize="13sp"/>
             </android.support.design.widget.TextInputLayout>

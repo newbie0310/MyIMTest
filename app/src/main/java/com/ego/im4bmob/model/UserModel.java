@@ -114,6 +114,7 @@ public class UserModel extends BaseModel {
             return;
         }
         final User user = new User();
+        user.setMobilePhoneNumberVerified(true);
         user.setMobilePhoneNumber(phoneNumber);
         user.setUsername(username);
         user.setPassword(password);
@@ -196,7 +197,7 @@ public class UserModel extends BaseModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        query.addWhereContains("username", username);
+        query.addWhereEqualTo("username", username);
         query.setLimit(limit);
         query.order("-createdAt");
         query.findObjects(new FindListener<User>() {
@@ -361,7 +362,7 @@ public class UserModel extends BaseModel {
      * @param phone
      */
     public void sendSms(String phone){
-        BmobSMS.requestSMSCode(phone, "重置密码模板", new QueryListener<Integer>() {
+        BmobSMS.requestSMSCode(phone, "MySmsCode", new QueryListener<Integer>() {
             @Override
             public void done(Integer integer, BmobException e) {
                 if (e == null){
@@ -402,6 +403,7 @@ public class UserModel extends BaseModel {
      */
     public void changePhoneNumber(String newPhone){
         User user = new User();
+        user.setMobilePhoneNumberVerified(true);
         user.setMobilePhoneNumber(newPhone);
         BmobUser bmobUser = BmobUser.getCurrentUser();
         user.update(bmobUser.getObjectId(), new UpdateListener() {
@@ -433,6 +435,19 @@ public class UserModel extends BaseModel {
                     isTrue = true;
                 }else {
                     Toast.makeText(getContext(),"更新手机号码失败！" + e,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void queryPhone(){
+        BmobQuery<User> query = new BmobQuery<User>();
+        query.addWhereExists("mobilePhoneNumber");
+        query.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> list, BmobException e) {
+                for (int i = 0; i < list.size(); i++) {
+                    Toast.makeText(getContext(),"更新手机号码失败！" + list.get(i).toString(),Toast.LENGTH_SHORT).show();
                 }
             }
         });
