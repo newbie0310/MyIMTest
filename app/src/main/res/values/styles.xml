@@ -102,4 +102,22 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="CustomRadioBtn">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/rb_nobtn_selector</item>
+        <item name="android:button">@null</item>
+    </style>
+
+    <style name="dialog_custom" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>    <!--是否浮在界面上-->
+        <item name="android:windowIsTranslucent">false</item> <!--是否半透明-->
+        <item name="android:windowNoTitle">true</item>       <!--是否有标题-->
+        <item name="android:backgroundDimEnabled">false</item> <!--背景是否模糊显示-->
+    </style>
+
+    <style name="bottom_menu_animation" parent="android:Animation">
+        <!--<item name="@android:windowEnterAnimation">@anim/bottom_menu_enter</item>-->
+        <!--<item name="@android:windowExitAnimation">@anim/bottom_menu_exit</item>-->
+    </style>
+
 </resources>

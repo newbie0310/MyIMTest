@@ -440,17 +440,5 @@ public class UserModel extends BaseModel {
         });
     }
 
-    public void queryPhone(){
-        BmobQuery<User> query = new BmobQuery<User>();
-        query.addWhereExists("mobilePhoneNumber");
-        query.findObjects(new FindListener<User>() {
-            @Override
-            public void done(List<User> list, BmobException e) {
-                for (int i = 0; i < list.size(); i++) {
-                    Toast.makeText(getContext(),"更新手机号码失败！" + list.get(i).toString(),Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 
 }
