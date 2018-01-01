@@ -2,14 +2,13 @@ package com.ego.im4bmob.ui.fragment;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,7 +38,6 @@ import com.ego.im4bmob.model.UserModel;
 import com.ego.im4bmob.mvp.bean.Installation;
 import com.ego.im4bmob.ui.ChangPwActivity;
 import com.ego.im4bmob.ui.ChangePhoneActivity;
-import com.ego.im4bmob.ui.ColorDialog;
 import com.ego.im4bmob.ui.LogActivity;
 import com.ego.im4bmob.ui.SetUserInfoActivity;
 import com.ego.im4bmob.ui.image_selector.MultiImageSelector;
@@ -47,6 +45,8 @@ import com.ego.im4bmob.util.BmobUtils;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
+import org.polaric.colorful.ColorPickerDialog;
+import org.polaric.colorful.Colorful;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -99,13 +99,6 @@ public class SetFragment extends ParentWithNaviFragment{
 
 
     private List<Setting> mSettingList = new ArrayList<>();
-    private View colorview;
-    private LinearLayout ll_navi;
-    private RadioButton rd_red;
-    private RadioButton rd_black;
-    private RadioButton rd_blue;
-    private RadioButton rd_yellow;
-    private RadioButton rd_green;
 
     private void initSettingData(){
         Setting userInfo = new Setting();
@@ -149,13 +142,11 @@ public class SetFragment extends ParentWithNaviFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_set, container, false);
-        colorview = inflater.inflate(R.layout.include_navi, container, false);
         initNaviView();
         initSettingData();
         ButterKnife.bind(this, rootView);
         checkBoxClick();
         lvListener();
-        initColor();
         String username = UserModel.getInstance().getCurrentUser().getUsername();
         mTvUsername.setText(TextUtils.isEmpty(username) ? "" : username);
         if (UserModel.getInstance().getCurrentUser().getAvatar() != null)
@@ -192,21 +183,11 @@ public class SetFragment extends ParentWithNaviFragment{
         });
     }
 
-    private void initColor(){
-        ll_navi = colorview.findViewById(R.id.ll_navi);
-        rd_red = colorview.findViewById(R.id.rb_red);
-        rd_black = colorview.findViewById(R.id.rb_black);
-        rd_blue = colorview.findViewById(R.id.rb_blue);
-        rd_yellow = colorview.findViewById(R.id.rb_yellow);
-        rd_green = colorview.findViewById(R.id.rb_green);
-    }
 
     public void lvListener(){
         SettingAdapter adapter = new SettingAdapter(mSettingList,getActivity());
         mSetLv.setAdapter(adapter);
         mSetLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            private ColorDialog dialog;
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -221,31 +202,27 @@ public class SetFragment extends ParentWithNaviFragment{
                         startActivity(new Intent(getActivity(), ChangPwActivity.class));
                         break;
                     case 4:
-                        dialog = new ColorDialog(getActivity(), R.layout.dialog_layout,
-                                new int[]{R.id.rb_red,R.id.rb_black,R.id.rb_blue,R.id.rb_yellow,R.id.rb_green,R.id.dg_ok,R.id.dg_cancel});
-                        dialog.setOnCenterItemClickListener(new ColorDialog.OnCenterItemClickListener() {
-                            @Override
-                            public void OnCenterItemClick(ColorDialog dialog, View view) {
-                                switch (view.getId()){
-                                    case R.id.rb_red:
-                                        break;
-                                    case R.id.dg_ok:
-                                        break;
-                                    case R.id.dg_cancel:
-                                        dialog.dismiss();
-                                        break;
-                                }
-                            }
-                        });
-                        dialog.show();
-                        break;
+                        showDialog();
+                       break;
                 }
             }
         });
     }
 
-    public void setColor(){
-        ll_navi.setBackgroundColor(getResources().getColor(R.color.red));
+    private void showDialog(){
+        myDialog dialog = new myDialog(getActivity());
+        dialog.setOnColorSelectedListener(new ColorPickerDialog.OnColorSelectedListener() {
+            @Override
+            public void onColorSelected(Colorful.ThemeColor themeColor) {
+                Colorful.config(getActivity())
+                        .primaryColor(themeColor)
+                        .accentColor(themeColor)
+                        .translucent(false)
+                        .dark(true)
+                        .apply();
+            }
+        });
+        dialog.show();
     }
 
     @OnClick({R.id.civ_avatar,R.id.tv_username})
@@ -469,5 +446,21 @@ public class SetFragment extends ParentWithNaviFragment{
         ButterKnife.unbind(this);
     }
 
+    class myDialog extends ColorPickerDialog{
 
+        public myDialog(Context context) {
+            super(context);
+        }
+        @Override
+        public void onItemClick(Colorful.ThemeColor color) {
+            super.onItemClick(color);
+            Intent intent = getActivity().getIntent();
+            getActivity().overridePendingTransition(0,0);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            getActivity().finish();
+            getActivity().overridePendingTransition(0,0);
+            startActivity(intent);
+            Toast.makeText(getContext(),"主题切换成！",Toast.LENGTH_SHORT).show();
+        }
+    }
 }

@@ -3,8 +3,12 @@ package com.ego.im4bmob.base;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +20,7 @@ import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.polaric.colorful.Colorful;
 
 import butterknife.ButterKnife;
 import com.ego.im4bmob.Config;
@@ -26,6 +31,19 @@ import com.ego.im4bmob.Config;
  * @date :2016-01-15-18:23
  */
 public class BaseActivity extends FragmentActivity {
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        Colorful.applyTheme(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
+
+    }
 
     @Override
     protected void onStart() {

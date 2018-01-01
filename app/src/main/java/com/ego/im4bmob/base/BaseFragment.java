@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -13,12 +14,20 @@ import com.orhanobut.logger.Logger;
 
 import com.ego.im4bmob.Config;
 
+import org.polaric.colorful.Colorful;
+
 /**基类
  * @author :smile
  * @project:BaseActivity
  * @date :2016-01-15-18:23
  */
 public class BaseFragment extends Fragment {
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Colorful.applyTheme(getActivity());
+    }
 
     protected void runOnMain(Runnable runnable) {
         getActivity().runOnUiThread(runnable);
