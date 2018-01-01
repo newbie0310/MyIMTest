@@ -1,9 +1,12 @@
 package com.ego.im4bmob.ui.fragment;
 
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +53,7 @@ public class ConversationFragment extends ParentWithNaviFragment {
     SwipeRefreshLayout sw_refresh;
     ConversationAdapter adapter;
     LinearLayoutManager layoutManager;
+    DrawerLayout drawerLayout;
 
     @Override
     protected String title() {
@@ -62,11 +66,17 @@ public class ConversationFragment extends ParentWithNaviFragment {
     }
 
     @Override
+    public Object left() {
+        return R.drawable.drawler;
+    }
+
+    @Override
     public ParentWithNaviActivity.ToolBarListener setToolBarListener() {
         return new ParentWithNaviActivity.ToolBarListener() {
             @Override
             public void clickLeft() {
-
+                drawerLayout = getActivity().findViewById(R.id.drawer_layout);
+                drawerLayout.openDrawer(GravityCompat.START);
             }
 
             @Override

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/setting_img"
+            android:icon="@drawable/setting_user_img"
+            android:title="基本数据"/>
+        <item
+            android:id="@+id/phone_number"
+            android:icon="@drawable/phone_number"
+            android:title="修改手机"/>
+        <item
+            android:id="@+id/data_info"
+            android:icon="@drawable/data_info"
+            android:title="详细信息设置"/>
+        <item
+            android:id="@+id/change_password"
+            android:icon="@drawable/change_password"
+            android:title="修改密码"/>
+        <item
+            android:id="@+id/theme"
+            android:icon="@drawable/theme"
+            android:title="更改主题"/>
+    </group>
+
+</menu>

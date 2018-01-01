@@ -1,19 +1,29 @@
 package com.ego.im4bmob.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.polaric.colorful.ColorPickerDialog;
+import org.polaric.colorful.Colorful;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -64,7 +74,10 @@ public class MainActivity extends BaseActivity {
     LinearLayout mLine;
     @Bind(R.id.fragment_container)
     RelativeLayout mFragmentContainer;
-
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @Bind(R.id.nav_view)
+    NavigationView mNavigationView;
     private TextView[] mTabs;
     private ConversationFragment conversationFragment;
     private SetFragment setFragment;
@@ -110,6 +123,48 @@ public class MainActivity extends BaseActivity {
         }
         //解决leancanary提示InputMethodManager内存泄露的问题
         IMMLeaks.fixFocusedViewLeak(getApplication());
+
+        mNavigationView.setCheckedItem(R.id.setting_img);
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getTitle().toString()){
+                    case "基本数据":
+                        break;
+                    case "修改手机":
+                        startActivity(new Intent(MainActivity.this, ChangePhoneActivity.class));
+                        drawerLayout.closeDrawers();
+                        break;
+                    case "详细信息设置":
+                        break;
+                    case "修改密码":
+                        startActivity(new Intent(MainActivity.this, ChangPwActivity.class));
+                        drawerLayout.closeDrawers();
+                        break;
+                    case "更改主题":
+                        showDialog();
+                        drawerLayout.closeDrawers();
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    private void showDialog(){
+        myDialog dialog = new myDialog(MainActivity.this);
+        dialog.setOnColorSelectedListener(new ColorPickerDialog.OnColorSelectedListener() {
+            @Override
+            public void onColorSelected(Colorful.ThemeColor themeColor) {
+                Colorful.config(MainActivity.this)
+                        .primaryColor(themeColor)
+                        .accentColor(themeColor)
+                        .translucent(false)
+                        .dark(false)
+                        .apply();
+            }
+        });
+        dialog.show();
     }
 
 
@@ -260,6 +315,24 @@ public class MainActivity extends BaseActivity {
             iv_contact_tips.setVisibility(View.VISIBLE);
         } else {
             iv_contact_tips.setVisibility(View.GONE);
+        }
+    }
+
+    class myDialog extends ColorPickerDialog{
+
+        public myDialog(Context context) {
+            super(context);
+        }
+        @Override
+        public void onItemClick(Colorful.ThemeColor color) {
+            super.onItemClick(color);
+            Intent intent = getIntent();
+            overridePendingTransition(0,0);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            finish();
+            overridePendingTransition(0,0);
+            startActivity(intent);
+            Toast.makeText(getContext(),"主题切换成！",Toast.LENGTH_SHORT).show();
         }
     }
 

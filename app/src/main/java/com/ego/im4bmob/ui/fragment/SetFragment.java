@@ -29,7 +29,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ego.im4bmob.R;
-import com.ego.im4bmob.adapter.SettingAdapter;
 import com.ego.im4bmob.base.ParentWithNaviFragment;
 import com.ego.im4bmob.bean.Setting;
 import com.ego.im4bmob.bean.User;
@@ -94,35 +93,9 @@ public class SetFragment extends ParentWithNaviFragment{
     EditText mTvUsername;
     @Bind(R.id.ck_user_name)
     CheckBox mUserNameEdit;
-    @Bind(R.id.lv_set)
-    ListView mSetLv;
 
 
-    private List<Setting> mSettingList = new ArrayList<>();
 
-    private void initSettingData(){
-        Setting userInfo = new Setting();
-        userInfo.setSetImgId(R.drawable.setting_user_img);
-        userInfo.setSettingInfo("基本数据");
-        mSettingList.add(userInfo);
-        Setting phoneEdit = new Setting();
-        phoneEdit.setSetImgId(R.drawable.phone_number);
-        phoneEdit.setSettingInfo("修改手机");
-        mSettingList.add(phoneEdit);
-        Setting dataInfo = new Setting();
-        dataInfo.setSetImgId(R.drawable.data_info);
-        dataInfo.setSettingInfo("详细信息设置");
-        mSettingList.add(dataInfo);
-        Setting changePassword = new Setting();
-        changePassword.setSetImgId(R.drawable.change_password);
-        changePassword.setSettingInfo("修改密码");
-        mSettingList.add(changePassword);
-        Setting appTheme = new Setting();
-        appTheme.setSetImgId(R.drawable.theme);
-        appTheme.setSettingInfo("更改主题");
-        mSettingList.add(appTheme);
-
-    }
 
     @Override
     protected String title() {
@@ -143,10 +116,8 @@ public class SetFragment extends ParentWithNaviFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_set, container, false);
         initNaviView();
-        initSettingData();
         ButterKnife.bind(this, rootView);
         checkBoxClick();
-        lvListener();
         String username = UserModel.getInstance().getCurrentUser().getUsername();
         mTvUsername.setText(TextUtils.isEmpty(username) ? "" : username);
         if (UserModel.getInstance().getCurrentUser().getAvatar() != null)
@@ -183,47 +154,6 @@ public class SetFragment extends ParentWithNaviFragment{
         });
     }
 
-
-    public void lvListener(){
-        SettingAdapter adapter = new SettingAdapter(mSettingList,getActivity());
-        mSetLv.setAdapter(adapter);
-        mSetLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i){
-                    case 0:
-                        startActivity(new Intent(getActivity(), SetUserInfoActivity.class));
-                        break;
-                    case 1:
-                        startActivity(new Intent(getActivity(), ChangePhoneActivity.class));
-                        break;
-                    case 3:
-                        startActivity(new Intent(getActivity(), ChangPwActivity.class));
-                        break;
-                    case 4:
-                        showDialog();
-                       break;
-                }
-            }
-        });
-    }
-
-    private void showDialog(){
-        myDialog dialog = new myDialog(getActivity());
-        dialog.setOnColorSelectedListener(new ColorPickerDialog.OnColorSelectedListener() {
-            @Override
-            public void onColorSelected(Colorful.ThemeColor themeColor) {
-                Colorful.config(getActivity())
-                        .primaryColor(themeColor)
-                        .accentColor(themeColor)
-                        .translucent(false)
-                        .dark(true)
-                        .apply();
-            }
-        });
-        dialog.show();
-    }
 
     @OnClick({R.id.civ_avatar,R.id.tv_username})
     public void onViewClicked(View view) {
@@ -446,21 +376,4 @@ public class SetFragment extends ParentWithNaviFragment{
         ButterKnife.unbind(this);
     }
 
-    class myDialog extends ColorPickerDialog{
-
-        public myDialog(Context context) {
-            super(context);
-        }
-        @Override
-        public void onItemClick(Colorful.ThemeColor color) {
-            super.onItemClick(color);
-            Intent intent = getActivity().getIntent();
-            getActivity().overridePendingTransition(0,0);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            getActivity().finish();
-            getActivity().overridePendingTransition(0,0);
-            startActivity(intent);
-            Toast.makeText(getContext(),"主题切换成！",Toast.LENGTH_SHORT).show();
-        }
-    }
 }
