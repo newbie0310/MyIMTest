@@ -1,7 +1,9 @@
 package com.ego.im4bmob.ui;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -40,6 +42,7 @@ import com.ego.im4bmob.R;
 import com.ego.im4bmob.adapter.ChatAdapter;
 import com.ego.im4bmob.adapter.OnRecyclerViewListener;
 import com.ego.im4bmob.base.ParentWithNaviActivity;
+import com.ego.im4bmob.model.UserModel;
 import com.ego.im4bmob.ui.image_selector.MultiImageSelector;
 import com.ego.im4bmob.ui.image_selector.multi_image_selector.utils.FileUtils;
 import com.ego.im4bmob.util.Util;
@@ -72,6 +75,7 @@ import cn.bmob.newim.listener.MessagesQueryListener;
 import cn.bmob.newim.listener.OnRecordChangeListener;
 import cn.bmob.newim.notification.BmobNotificationManager;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
 
 import static com.ego.im4bmob.ui.image_selector.multi_image_selector.MultiImageSelectorFragment.getUriForFile;
 
@@ -190,10 +194,26 @@ public class ChatActivity extends ParentWithNaviActivity implements MessageListH
             }
 
             @Override
-            public boolean onItemLongClick(int position) {
+            public boolean onItemLongClick(final int position) {
                 //TODO 消息：5.3、删除指定聊天消息
-                mConversationManager.deleteMessage(adapter.getItem(position));
-                adapter.remove(position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
+                builder.setTitle("警告！");
+                builder.setMessage("您确定要删除该聊天记录？删除后不可恢复");
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mConversationManager.deleteMessage(adapter.getItem(position));
+                        adapter.remove(position);
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 return true;
             }
         });

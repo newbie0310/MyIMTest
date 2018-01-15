@@ -14,8 +14,35 @@ import cn.bmob.v3.datatype.BmobFile;
 public class User extends BmobUser {
 
     private BmobFile avatar;
+    private int age;
+    private String sex;
+    private String sign;
 
     public User() {
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public User(NewFriend friend) {

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +16,14 @@ import android.widget.Toast;
 
 import com.ego.im4bmob.R;
 import com.ego.im4bmob.adapter.PostAdapter;
+import com.ego.im4bmob.base.ParentWithNaviActivity;
 import com.ego.im4bmob.base.ParentWithNaviFragment;
 import com.ego.im4bmob.event.RefreshPostEvent;
 import com.ego.im4bmob.mvp.bean.Post;
 import com.ego.im4bmob.mvp.presenter.ShowPostPresenter;
 import com.ego.im4bmob.mvp.view.ShowPostsView;
 import com.ego.im4bmob.ui.PublishPostActivity;
+import com.ego.im4bmob.ui.SearchUserActivity;
 import com.ego.im4bmob.widget.SwipeRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -54,7 +58,7 @@ public class DiscoverFragment extends ParentWithNaviFragment implements ShowPost
     TextView mTvError;
     @Bind(R.id.fb_add_post)
     FloatingActionButton mFbAddPost;
-
+    DrawerLayout drawerLayout;
 
     private List<Post> mPosts;
     private PostAdapter mPostAdapter;
@@ -120,6 +124,27 @@ public class DiscoverFragment extends ParentWithNaviFragment implements ShowPost
     @Override
     protected String title() {
         return "发现";
+    }
+
+    @Override
+    public Object left() {
+        return R.drawable.drawler;
+    }
+
+    @Override
+    public ParentWithNaviActivity.ToolBarListener setToolBarListener() {
+        return new ParentWithNaviActivity.ToolBarListener() {
+            @Override
+            public void clickLeft() {
+                drawerLayout = getActivity().findViewById(R.id.drawer_layout);
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+
+            @Override
+            public void clickRight() {
+                startActivity(SearchUserActivity.class,null);
+            }
+        };
     }
 
     @Override

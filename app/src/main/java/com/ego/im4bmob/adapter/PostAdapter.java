@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -58,6 +59,12 @@ public class PostAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
                 mContext.startActivity(new Intent(mContext, PostDetailsActivity.class).putExtra("post", post));
+            }
+        });
+        postHolder.mIvUserAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }

@@ -14,6 +14,7 @@ import com.ego.im4bmob.adapter.base.BaseViewHolder;
 import com.ego.im4bmob.base.ImageLoaderFactory;
 import com.ego.im4bmob.bean.User;
 import com.ego.im4bmob.ui.UserInfoActivity;
+import com.ego.im4bmob.ui.otInfoActivity;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -83,7 +84,7 @@ public class ReceiveImageHolder extends BaseViewHolder {
     iv_avatar.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        toast("点击" + info.getName() + "的头像");
+        toast("点击了" + info.getName() + "的头像");
           Bundle bundle = new Bundle();
           User user = new User();
           BmobFile bmobFile = new BmobFile();
@@ -92,7 +93,7 @@ public class ReceiveImageHolder extends BaseViewHolder {
           user.setUsername(info.getName());
           user.setObjectId(info.getUserId());
           bundle.putSerializable("u", user);
-          startActivity(UserInfoActivity.class,bundle);
+          startActivity(otInfoActivity.class,bundle);
       }
     });
 

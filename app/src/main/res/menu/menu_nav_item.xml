@@ -10,10 +10,6 @@
             android:icon="@drawable/phone_number"
             android:title="修改手机"/>
         <item
-            android:id="@+id/data_info"
-            android:icon="@drawable/data_info"
-            android:title="详细信息设置"/>
-        <item
             android:id="@+id/change_password"
             android:icon="@drawable/change_password"
             android:title="修改密码"/>
@@ -21,6 +17,11 @@
             android:id="@+id/theme"
             android:icon="@drawable/theme"
             android:title="更改主题"/>
+        <item
+            android:id="@+id/out"
+            android:icon="@drawable/out"
+            android:title="退出登陆"/>
+
     </group>
 
 </menu>

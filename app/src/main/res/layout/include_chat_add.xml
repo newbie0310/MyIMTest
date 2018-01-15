@@ -31,6 +31,7 @@
         android:id="@+id/tv_location"
         android:layout_width="0dp"
         android:layout_weight="1.0"
+        android:visibility="gone"
         android:drawablePadding="10dp"
         android:gravity="center"
         android:layout_height="wrap_content"

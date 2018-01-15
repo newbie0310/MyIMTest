@@ -70,7 +70,7 @@ public class RegActivity extends AppCompatActivity {
     @Bind(R.id.reg_send_smsCode)
     Button mSendSmsCode;
 
-    private boolean SmsIsTrue = false;
+    private boolean SmsIsTrue = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -238,6 +238,7 @@ public class RegActivity extends AppCompatActivity {
                 if (e == null){
                     SmsIsTrue = true;
                 }else {
+                    SmsIsTrue = false;
                     Log.i("checkSmsCode",e + "");
                     Toast.makeText(RegActivity.this,"请输入正确的验证码" + e,Toast.LENGTH_SHORT).show();
                 }

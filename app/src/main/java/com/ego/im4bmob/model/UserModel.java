@@ -38,7 +38,7 @@ import cn.bmob.v3.listener.UpdateListener;
  */
 public class UserModel extends BaseModel {
 
-    public static boolean isTrue = false;
+    public static boolean isTrue = true;
 
     private static UserModel ourInstance = new UserModel();
 
@@ -91,12 +91,13 @@ public class UserModel extends BaseModel {
 
     /**
      * TODO 用户管理：2.2.2使用短信验证码注册
-//     * @param phoneNumber
+     * //     * @param phoneNumber
+     *
      * @param username
      * @param password
      * @param pwdagain
      */
-    public void registerByPhone(String phoneNumber,String username, String password, String pwdagain,String smsCode,final LogInListener listener){
+    public void registerByPhone(String phoneNumber, String username, String password, String pwdagain, String smsCode, final LogInListener listener) {
         if (TextUtils.isEmpty(username)) {
             listener.done(null, new BmobException(CODE_NULL, "请填写用户名"));
             return;
@@ -162,6 +163,27 @@ public class UserModel extends BaseModel {
         });
     }
 
+    public void loginByCode(String phone, String code, final LogInListener listener) {
+        if (TextUtils.isEmpty(phone)) {
+            listener.done(null, new BmobException(CODE_NULL, "请填写用户名"));
+            return;
+        }
+        if (TextUtils.isEmpty(code)) {
+            listener.done(null, new BmobException(CODE_NULL, "请填写密码"));
+            return;
+        }
+        final User user = new User();
+        user.loginBySMSCode(phone, code, new LogInListener<Object>() {
+            @Override
+            public void done(Object o, BmobException e) {
+                if (e == null) {
+                    listener.done(getCurrentUser(), null);
+                } else {
+                    listener.done(user, e);
+                }
+            }
+        });
+    }
 
 
     /**
@@ -264,7 +286,7 @@ public class UserModel extends BaseModel {
                 public void done(User s, BmobException e) {
                     if (e == null) {
                         String name = s.getUsername();
-                        String avatar = s.getAvatar()==null?null:s.getAvatar().getFileUrl();
+                        String avatar = s.getAvatar() == null ? null : s.getAvatar().getFileUrl();
                         conversation.setConversationIcon(avatar);
                         conversation.setConversationTitle(name);
                         info.setName(name);
@@ -338,20 +360,21 @@ public class UserModel extends BaseModel {
 
     /**
      * TODO 信息编辑:10.1 修改用户名
+     *
      * @param newName
      */
-    public void editUserName(String newName){
-        Log.i("editUserName",newName);
+    public void editUserName(String newName) {
+        Log.i("editUserName", newName);
         User user = new User();
         user.setUsername(newName);
         BmobUser bmobUser = BmobUser.getCurrentUser();
         user.update(bmobUser.getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
-                if (e == null){
-                    Toast.makeText(getContext(),"更新成功！",Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getContext(),"更新用户名失败！" + e,Toast.LENGTH_SHORT).show();
+                if (e == null) {
+                    Toast.makeText(getContext(), "更新成功！", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "更新用户名失败！" + e, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -359,16 +382,17 @@ public class UserModel extends BaseModel {
 
     /**
      * TODO 信息编辑:10.2 发送验证码
+     *
      * @param phone
      */
-    public void sendSms(String phone){
+    public void sendSms(String phone) {
         BmobSMS.requestSMSCode(phone, "MySmsCode", new QueryListener<Integer>() {
             @Override
             public void done(Integer integer, BmobException e) {
-                if (e == null){
-                    Toast.makeText(getContext(),"验证码已发送，请注意查收" ,Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getContext(),"失败：" + e,Toast.LENGTH_SHORT).show();
+                if (e == null) {
+                    Toast.makeText(getContext(), "验证码已发送，请注意查收", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "失败：" + e, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -376,21 +400,23 @@ public class UserModel extends BaseModel {
 
     /**
      * TODO 信息编辑：10.3 验证短信验证码
+     *
      * @param phone
      * @param code
      * @return
      */
-    public boolean checkSms(String phone,String code){
+    public boolean checkSms(String phone, String code) {
 
-        BmobSMS.verifySmsCode(phone.toString(),code, new UpdateListener(){
+        BmobSMS.verifySmsCode(phone.toString(), code, new UpdateListener() {
             @Override
             public void done(BmobException e) {
-                if (e == null){
+                if (e == null) {
                     isTrue = true;
-                    Log.i("btn_change_ok","验证码正确");
-                }else {
-                    Log.i("checkSmsCode",e + "");
-                    Toast.makeText(getContext(),"请输入正确的验证码" + e,Toast.LENGTH_SHORT).show();
+                    Log.i("btn_change_ok", "验证码正确");
+                } else {
+                    isTrue = false;
+                    Log.i("checkSmsCode", e + "");
+                    Toast.makeText(getContext(), "请输入正确的验证码", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -399,9 +425,10 @@ public class UserModel extends BaseModel {
 
     /**
      * 修改绑定手机
+     *
      * @param newPhone
      */
-    public void changePhoneNumber(String newPhone){
+    public void changePhoneNumber(String newPhone) {
         User user = new User();
         user.setMobilePhoneNumberVerified(true);
         user.setMobilePhoneNumber(newPhone);
@@ -409,11 +436,11 @@ public class UserModel extends BaseModel {
         user.update(bmobUser.getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
-                if (e == null){
-                    Toast.makeText(getContext(),"更新成功！",Toast.LENGTH_SHORT).show();
+                if (e == null) {
+                    Toast.makeText(getContext(), "更新成功！", Toast.LENGTH_SHORT).show();
                     isTrue = true;
-                }else {
-                    Toast.makeText(getContext(),"更新手机号码失败！" + e,Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "更新手机号码失败！" + e, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -421,24 +448,49 @@ public class UserModel extends BaseModel {
 
     /**
      * 修改密码
+     *
      * @param newPassword
      */
-    public void changePassword(String newPassword){
+    public void changePassword(String newPassword) {
         User user = new User();
         user.setPassword(newPassword);
         BmobUser bmobUser = BmobUser.getCurrentUser();
         user.update(bmobUser.getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
-                if (e == null){
-                    Toast.makeText(getContext(),"更新成功！",Toast.LENGTH_SHORT).show();
+                if (e == null) {
+                    Toast.makeText(getContext(), "更新成功！", Toast.LENGTH_SHORT).show();
                     isTrue = true;
-                }else {
-                    Toast.makeText(getContext(),"更新手机号码失败！" + e,Toast.LENGTH_SHORT).show();
+                } else {
+                    isTrue = false;
+                    Toast.makeText(getContext(), "更新密码失败！" + e, Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
+    /**
+     * 设置性别
+     * @param sex
+     */
+    public void setSex(String sex, int age,final UpdateListener listener){
+        User user = new User();
+        user.setSex(sex);
+        user.setAge(age);
+        BmobUser bmobUser = BmobUser.getCurrentUser();
+        user.update(bmobUser.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    listener.done(e);
+                    Toast.makeText(getContext(), "设置成功！", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "设置失败！" + e, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
 
 
 }

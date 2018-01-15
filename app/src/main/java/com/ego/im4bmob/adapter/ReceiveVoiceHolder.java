@@ -13,6 +13,7 @@ import com.ego.im4bmob.adapter.base.BaseViewHolder;
 import com.ego.im4bmob.base.ImageLoaderFactory;
 import com.ego.im4bmob.bean.User;
 import com.ego.im4bmob.ui.UserInfoActivity;
+import com.ego.im4bmob.ui.otInfoActivity;
 
 import java.text.SimpleDateFormat;
 
@@ -77,7 +78,7 @@ public class ReceiveVoiceHolder extends BaseViewHolder {
           user.setUsername(info.getName());
           user.setObjectId(info.getUserId());
           bundle.putSerializable("u", user);
-          startActivity(UserInfoActivity.class,bundle);
+          startActivity(otInfoActivity.class,bundle);
       }
     });
     //显示特有属性

@@ -1,5 +1,6 @@
 package com.ego.im4bmob.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -50,6 +51,8 @@ public class ChangPwActivity extends ParentWithNaviActivity {
         initNaviView();
 
         phone = UserModel.getInstance().getCurrentUser().getMobilePhoneNumber();
+        mChangePhone.setFocusable(false);
+        mChangePhone.setFocusableInTouchMode(false);
         mChangePhone.setText(phone);
     }
 
@@ -57,7 +60,7 @@ public class ChangPwActivity extends ParentWithNaviActivity {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.change_send_smsCode:
-                UserModel.getInstance().sendSms(phone);
+                UserModel.getInstance().sendSms(mChangePhone.getText().toString());
                 break;
             case R.id.btn_change_ok:
                 if (TextUtils.isEmpty(mNewPhone.getText().toString())){
@@ -68,7 +71,7 @@ public class ChangPwActivity extends ParentWithNaviActivity {
                     break;
                 }else {
                     Toast.makeText(this,"正在更新密码，请稍后...",Toast.LENGTH_SHORT).show();
-                    UserModel.getInstance().checkSms(phone,mChangeSms.getText().toString());
+                    UserModel.getInstance().checkSms(mChangePhone.getText().toString(),mChangeSms.getText().toString());
                     if (UserModel.isTrue){
                         UserModel.getInstance().changePassword(mNewPhone.getText().toString());
                         this.finish();
@@ -81,5 +84,11 @@ public class ChangPwActivity extends ParentWithNaviActivity {
     @Override
     protected String title() {
         return "修改密码";
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }

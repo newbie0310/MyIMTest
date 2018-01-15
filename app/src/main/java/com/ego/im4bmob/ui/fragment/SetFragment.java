@@ -29,15 +29,18 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ego.im4bmob.R;
+import com.ego.im4bmob.adapter.UserDetailAdater;
 import com.ego.im4bmob.base.ParentWithNaviFragment;
 import com.ego.im4bmob.bean.Setting;
 import com.ego.im4bmob.bean.User;
+import com.ego.im4bmob.bean.UserBaseInfo;
 import com.ego.im4bmob.event.RefreshEvent;
 import com.ego.im4bmob.model.UserModel;
 import com.ego.im4bmob.mvp.bean.Installation;
 import com.ego.im4bmob.ui.ChangPwActivity;
 import com.ego.im4bmob.ui.ChangePhoneActivity;
 import com.ego.im4bmob.ui.LogActivity;
+import com.ego.im4bmob.ui.MainActivity;
 import com.ego.im4bmob.ui.SetUserInfoActivity;
 import com.ego.im4bmob.ui.image_selector.MultiImageSelector;
 import com.ego.im4bmob.util.BmobUtils;
@@ -75,27 +78,14 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
  * @project:SetFragment
  * @date :2016-01-25-18:23
  */
-public class SetFragment extends ParentWithNaviFragment{
-
-    @Bind(R.id.v_top)
-    View mVTop;
-    @Bind(R.id.tv_left)
-    ImageView mTvLeft;
-    @Bind(R.id.tv_title)
-    TextView mTvTitle;
-    @Bind(R.id.tv_right)
-    TextView mTvRight;
-    @Bind(R.id.btn_logout)
-    Button mLogout;
-    @Bind(R.id.civ_avatar)
-    CircleImageView mCivAvatar;
-    @Bind(R.id.tv_username)
-    EditText mTvUsername;
-    @Bind(R.id.ck_user_name)
-    CheckBox mUserNameEdit;
+public class SetFragment extends ParentWithNaviFragment implements AdapterView.OnItemClickListener {
 
 
+    @Bind(R.id.detail_list)
+    ListView detailList;
 
+    List<UserBaseInfo> userBaseInfoLists = new ArrayList<>();
+    private UserDetailAdater adater;
 
     @Override
     protected String title() {
@@ -117,56 +107,16 @@ public class SetFragment extends ParentWithNaviFragment{
         rootView = inflater.inflate(R.layout.fragment_set, container, false);
         initNaviView();
         ButterKnife.bind(this, rootView);
-        checkBoxClick();
-        String username = UserModel.getInstance().getCurrentUser().getUsername();
-        mTvUsername.setText(TextUtils.isEmpty(username) ? "" : username);
-        if (UserModel.getInstance().getCurrentUser().getAvatar() != null)
-            Glide.with(this).load(UserModel.getInstance().getCurrentUser().getAvatar().getFileUrl()).into(mCivAvatar);
-        else Glide.with(this).load(R.mipmap.icon_message_press).into(mCivAvatar);
-
+        initData();
+        adater = new UserDetailAdater(userBaseInfoLists,this.getContext());
+        detailList.setAdapter(adater);
+        detailList.setOnItemClickListener(this);
         return rootView;
     }
 
     @OnClick(R.id.btn_logout)
     public void onClick() {
         modifyInstallationUser();
-    }
-
-
-    private void checkBoxClick(){
-        mUserNameEdit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            private InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (mUserNameEdit.isChecked()){
-                    mTvUsername.setFocusable(true);
-                    mTvUsername.setFocusableInTouchMode(true);
-                    mTvUsername.requestFocus();
-                    imm.toggleSoftInput(0, InputMethodManager.RESULT_SHOWN);
-                }else {
-                    mTvUsername.setFocusable(false);
-                    mTvUsername.setFocusableInTouchMode(false);
-                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-
-                    UserModel.getInstance().editUserName(mTvUsername.getText().toString());
-                }
-            }
-        });
-    }
-
-
-    @OnClick({R.id.civ_avatar,R.id.tv_username})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.civ_avatar:
-                //TODO 修改头像
-
-                select();
-                break;
-            case R.id.tv_username:
-                break;
-
-        }
     }
 
     /**
@@ -219,6 +169,42 @@ public class SetFragment extends ParentWithNaviFragment{
                     }
                 });
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+    private void initData(){
+        UserBaseInfo userSex = new UserBaseInfo();
+        userSex.setSetName("性别");
+        userBaseInfoLists.add(userSex);
+        UserBaseInfo userAge = new UserBaseInfo();
+        userAge.setSetName("年龄");
+        userBaseInfoLists.add(userAge);
+        String phone = UserModel.getInstance().getCurrentUser().getMobilePhoneNumber();
+        UserBaseInfo userPhone = new UserBaseInfo();
+        userPhone.setSetName("手机");
+        userPhone.setSetDatile(phone);
+        userBaseInfoLists.add(userPhone);
+        String email = UserModel.getInstance().getCurrentUser().getEmail();
+        UserBaseInfo userEmail = new UserBaseInfo();
+        userEmail.setSetName("个性签名");
+        userEmail.setSetDatile(email);
+        userBaseInfoLists.add(userEmail);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        if (i == 0){
+        } else if (i == 1) {
+            Toast.makeText(getActivity(),"你点击了年龄",Toast.LENGTH_SHORT).show();
+        }else if (i == 4){
+
+        }
+    }
+
     public void select() {
 
         if (ContextCompat.checkSelfPermission(getActivity(),
@@ -261,7 +247,6 @@ public class SetFragment extends ParentWithNaviFragment{
                 final ProgressDialog progressDialog = new ProgressDialog(getActivity());
                 progressDialog.setTitle("正在上传头像……");
                 progressDialog.show();
-                Glide.with(getActivity()).load(paths.get(0)).into(mCivAvatar);
                 final BmobFile bmobFile = new BmobFile(new File(paths.get(0)));
 
                 bmobFile.upload(new UploadFileListener() {
@@ -368,12 +353,6 @@ public class SetFragment extends ParentWithNaviFragment{
                 return;
             }
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
 }

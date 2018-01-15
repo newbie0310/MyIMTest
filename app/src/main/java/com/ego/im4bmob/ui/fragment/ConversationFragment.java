@@ -186,32 +186,32 @@ public class ConversationFragment extends ParentWithNaviFragment {
      * 获取会话列表的数据：增加新朋友会话
      * @return
      */
-    private List<Conversation> getConversations(){
-        //添加会话
-        List<Conversation> conversationList = new ArrayList<>();
-        conversationList.clear();
-        //TODO 会话：4.2、查询全部会话
-        List<BmobIMConversation> list =BmobIM.getInstance().loadAllConversation();
-        if(list!=null && list.size()>0){
-            for (BmobIMConversation item:list){
-                switch (item.getConversationType()){
-                    case 1://私聊
-                        conversationList.add(new PrivateConversation(item));
-                        break;
-                    default:
-                        break;
+        private List<Conversation> getConversations(){
+            //添加会话
+            List<Conversation> conversationList = new ArrayList<>();
+            conversationList.clear();
+            //TODO 会话：4.2、查询全部会话
+            List<BmobIMConversation> list =BmobIM.getInstance().loadAllConversation();
+            if(list!=null && list.size()>0){
+                for (BmobIMConversation item:list){
+                    switch (item.getConversationType()){
+                        case 1://私聊
+                            conversationList.add(new PrivateConversation(item));
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
+            //添加新朋友会话-获取好友请求表中最新一条记录
+            List<NewFriend> friends = NewFriendManager.getInstance(getActivity()).getAllNewFriend();
+            if(friends!=null && friends.size()>0){
+                conversationList.add(new NewFriendConversation(friends.get(0)));
+            }
+            //重新排序
+            Collections.sort(conversationList);
+            return conversationList;
         }
-        //添加新朋友会话-获取好友请求表中最新一条记录
-        List<NewFriend> friends = NewFriendManager.getInstance(getActivity()).getAllNewFriend();
-        if(friends!=null && friends.size()>0){
-            conversationList.add(new NewFriendConversation(friends.get(0)));
-        }
-        //重新排序
-        Collections.sort(conversationList);
-        return conversationList;
-    }
 
     /**注册自定义消息接收事件
      * @param event

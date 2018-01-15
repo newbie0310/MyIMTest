@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -62,6 +64,7 @@ public class ContactFragment extends ParentWithNaviFragment {
 //    ImageView iv_recent_avatar;
     ContactAdapter adapter;
     LinearLayoutManager layoutManager;
+    DrawerLayout drawerLayout;
 
     @Override
     protected String title() {
@@ -74,11 +77,17 @@ public class ContactFragment extends ParentWithNaviFragment {
     }
 
     @Override
+    public Object left() {
+        return R.drawable.drawler;
+    }
+
+    @Override
     public ParentWithNaviActivity.ToolBarListener setToolBarListener() {
         return new ParentWithNaviActivity.ToolBarListener() {
             @Override
             public void clickLeft() {
-
+                drawerLayout = getActivity().findViewById(R.id.drawer_layout);
+                drawerLayout.openDrawer(GravityCompat.START);
             }
 
             @Override

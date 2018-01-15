@@ -157,7 +157,12 @@
 
         <activity android:name=".ui.SetUserInfoActivity" />
         <activity android:name=".ui.ChangePhoneActivity" />
-        <activity android:name=".ui.ChangPwActivity"></activity>
+        <activity android:name=".ui.ChangPwActivity" />
+        <activity android:name=".ui.UserBaseInfoActivity" />
+        <activity android:name=".ui.LoginByCodeActivity" />
+        <activity android:name=".ui.UserSignActivity" />
+        <activity android:name=".ui.UserAgeActivity" />
+        <activity android:name=".ui.otInfoActivity"></activity>
     </application>
 
 </manifest>

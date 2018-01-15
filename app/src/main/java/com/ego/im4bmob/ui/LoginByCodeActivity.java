@@ -1,21 +1,19 @@
 package com.ego.im4bmob.ui;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
+import android.os.Bundle;
 import android.transition.Explode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ego.im4bmob.R;
+import com.ego.im4bmob.base.BaseActivity;
+import com.ego.im4bmob.base.ParentWithNaviActivity;
 import com.ego.im4bmob.bean.User;
 import com.ego.im4bmob.model.UserModel;
 import com.ego.im4bmob.mvp.bean.Installation;
@@ -27,98 +25,77 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallationManager;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 import rx.functions.Action1;
 
-import static com.ego.im4bmob.Config.APP_KEY;
+public class LoginByCodeActivity extends ParentWithNaviActivity {
 
-public class LogActivity extends AppCompatActivity {
-
-
-    @Bind(R.id.et_username)
-    EditText mEtUsername;
-    @Bind(R.id.et_password)
-    EditText mEtPassword;
-    @Bind(R.id.bt_go)
-    Button mBtGo;
-    @Bind(R.id.cv)
-    CardView mCv;
-    @Bind(R.id.fab)
-    TextView mFab;
-    @Bind(R.id.log_tv_forgot)
-    TextView mLogTvForgot;
+    @Bind(R.id.v_top)
+    View mVTop;
+    @Bind(R.id.tv_left)
+    ImageView mTvLeft;
+    @Bind(R.id.tv_title)
+    TextView mTvTitle;
+    @Bind(R.id.tv_right)
+    TextView mTvRight;
+    @Bind(R.id.et_login)
+    EditText mLoginPhone;
+    @Bind(R.id.et_login_sms)
+    EditText mLoginSms;
+    @Bind(R.id.login_send_smsCode)
+    Button mSendSms;
+    @Bind(R.id.btn_login_ok)
+    Button mLoginOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log);
+        setContentView(R.layout.activity_login_by_code);
         ButterKnife.bind(this);
-        Bmob.initialize(this, APP_KEY);
+        initNaviView();
     }
 
-    @OnClick({R.id.bt_go, R.id.fab,R.id.log_tv_forgot})
+    @Override
+    protected String title() {
+        return "登陆";
+    }
+
+
+    @OnClick({R.id.login_send_smsCode, R.id.btn_login_ok})
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.fab:
-                //点击注册按钮添加动画
-//                getWindow().setExitTransition(null);
-//                getWindow().setEnterTransition(null);
-//
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                    ActivityOptions options =
-//                            ActivityOptions.makeSceneTransitionAnimation(this, mFab, mFab.getTransitionName());
-//                    startActivity(new Intent(this, RegActivity.class), options.toBundle());
-//                } else {
-//                    startActivity(new Intent(this, RegActivity.class));
-//                }
-
-                startActivity(new Intent(this, RegActivity.class));
+        switch (view.getId()){
+            case R.id.login_send_smsCode:
+                UserModel.getInstance().sendSms(mLoginPhone.getText().toString());
                 break;
-            case R.id.bt_go:
-
-                UserModel.getInstance().login(mEtUsername.getText().toString(), mEtPassword.getText().toString(), new LogInListener() {
-
-                    @Override
-                    public void done(Object o, BmobException e) {
-                        if (e == null) {
-                            //登录成功
+            case  R.id.btn_login_ok:
+                    UserModel.getInstance().loginByCode(mLoginPhone.getText().toString(), mLoginSms.getText().toString(), new LogInListener() {
+                        @Override
+                        public void done(Object o, BmobException e) {
                             modifyInstallationUser((User)o);
                             Explode explode = new Explode();
                             explode.setDuration(500);
 
                             getWindow().setExitTransition(explode);
                             getWindow().setEnterTransition(explode);
-                            ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LogActivity.this);
-                            Intent i2 = new Intent(LogActivity.this, MainActivity.class);
+                            ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginByCodeActivity.this);
+                            Intent i2 = new Intent(LoginByCodeActivity.this, MainActivity.class);
                             startActivity(i2, oc2.toBundle());
-                            LogActivity.this.finish();
-                        } else {
-                            Logger.e(e.getMessage() + "(" + e.getErrorCode() + ")");
-                            Toast.makeText(LogActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            LoginByCodeActivity.this.finish();
                         }
-                    }
-                });
 
-                break;
-            case R.id.log_tv_forgot:
-//                Intent intent = new Intent(this,ChangPwActivity.class);
-//                intent.putExtra("className","MainActivity");
-//                startActivity(intent);
-//                startActivity(new Intent(this,ChangPwActivity.class));
-                startActivity(new Intent(this,LoginByCodeActivity.class));
+                        @Override
+                        public void done(Object o, Object o2) {
+
+                        }
+                    });
+
                 break;
         }
     }
 
-    /**
-     * 修改设备表的用户信息：先查询设备表中的数据，再修改数据中用户信息
-     *
-     * @param user
-     */
     private void modifyInstallationUser(final User user) {
         BmobQuery<Installation> bmobQuery = new BmobQuery<>();
         final String id = BmobInstallationManager.getInstallationId();
@@ -135,7 +112,7 @@ public class LogActivity extends AppCompatActivity {
                                     .subscribe(new Action1<Void>() {
                                         @Override
                                         public void call(Void aVoid) {
-                                            BmobUtils.toast(LogActivity.this, "登陆成功！");
+                                            BmobUtils.toast(LoginByCodeActivity.this, "登陆成功！");
                                         }
                                     }, new Action1<Throwable>() {
                                         @Override

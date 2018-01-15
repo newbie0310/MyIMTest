@@ -15,7 +15,10 @@ import com.ego.im4bmob.R;
 import com.ego.im4bmob.adapter.base.BaseViewHolder;
 import com.ego.im4bmob.base.ImageLoaderFactory;
 import com.ego.im4bmob.bean.User;
+import com.ego.im4bmob.ui.UserBaseInfoActivity;
 import com.ego.im4bmob.ui.UserInfoActivity;
+import com.ego.im4bmob.ui.otInfoActivity;
+
 import cn.bmob.newim.bean.BmobIMMessage;
 import cn.bmob.newim.bean.BmobIMUserInfo;
 import cn.bmob.v3.datatype.BmobFile;
@@ -65,13 +68,12 @@ public class ReceiveTextHolder extends BaseViewHolder {
                 user.setUsername(info.getName());
                 user.setObjectId(info.getUserId());
                 bundle.putSerializable("u", user);
-                startActivity(UserInfoActivity.class, bundle);
+                startActivity(otInfoActivity.class, bundle);
             }
         });
         tv_message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toast("点击" + message.getContent());
                 if (onRecyclerViewListener != null) {
                     onRecyclerViewListener.onItemClick(getAdapterPosition());
                 }
