@@ -76,7 +76,6 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
  *
  * @author :smile
  * @project:SetFragment
- * @date :2016-01-25-18:23
  */
 public class SetFragment extends ParentWithNaviFragment implements AdapterView.OnItemClickListener {
 

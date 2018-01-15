@@ -16,9 +16,6 @@ import butterknife.ButterKnife;
 import com.ego.im4bmob.R;
 import com.ego.im4bmob.mvp.bean.Love;
 
-/**
- * Created on 17/9/1 14:40
- */
 
 public class LoveAdapter extends RecyclerView.Adapter {
 

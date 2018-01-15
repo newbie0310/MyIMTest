@@ -13,9 +13,6 @@ import cn.bmob.v3.BmobUser;
 import rx.Observable;
 import rx.functions.Func1;
 
-/**
- * Created on 17/7/5 09:36
- */
 
 public class BmobModel {
 

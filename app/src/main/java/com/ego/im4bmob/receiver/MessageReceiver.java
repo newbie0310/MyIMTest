@@ -12,10 +12,6 @@ import com.ego.im4bmob.util.Notify;
 import cn.bmob.push.PushConstants;
 
 
-/**
- * Created on 17/9/12 15:26
- */
-
 public class MessageReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {

@@ -1,9 +1,5 @@
 package com.ego.im4bmob.bean;
 
-/**
- * Created by zaXie on 2017/12/23.
- */
-
 public class Setting {
     private String settingInfo;
     private int setImgId;

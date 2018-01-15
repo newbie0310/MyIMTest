@@ -7,7 +7,6 @@ import cn.bmob.v3.exception.BmobException;
 /**
  * @author :smile
  * @project:QueryUserListener
- * @date :2016-02-01-16:23
  */
 public abstract class QueryUserListener extends BmobListener1<User> {
 

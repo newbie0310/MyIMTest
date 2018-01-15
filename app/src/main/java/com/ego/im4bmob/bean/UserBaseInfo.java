@@ -1,8 +1,5 @@
 package com.ego.im4bmob.bean;
 
-/**
- * Created by zaXie on 2018/1/11.
- */
 
 public class UserBaseInfo {
     private String setName;

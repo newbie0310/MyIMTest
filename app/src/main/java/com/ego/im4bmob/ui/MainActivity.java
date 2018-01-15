@@ -76,7 +76,6 @@ import rx.functions.Action1;
 /**
  * @author :smile
  * @project:MainActivity
- * @date :2016-01-15-18:23
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 

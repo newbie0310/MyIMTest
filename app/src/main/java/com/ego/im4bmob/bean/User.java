@@ -9,7 +9,6 @@ import cn.bmob.v3.datatype.BmobFile;
 /**
  * @author :smile
  * @project:User
- * @date :2016-01-22-18:11
  */
 public class User extends BmobUser {
 

@@ -6,9 +6,6 @@ import com.ego.im4bmob.BmobIMApplication;
 
 import org.polaric.colorful.Colorful;
 
-/**
- * Created by zaXie on 2018/1/1.
- */
 
 public class MyApplication extends BmobIMApplication {
     @Override

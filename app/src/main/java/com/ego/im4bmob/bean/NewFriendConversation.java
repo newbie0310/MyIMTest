@@ -13,7 +13,6 @@ import com.ego.im4bmob.ui.NewFriendActivity;
 
 /**
  * 新朋友会话
- * Created by Administrator on 2016/5/25.
  */
 public class NewFriendConversation extends Conversation{
 

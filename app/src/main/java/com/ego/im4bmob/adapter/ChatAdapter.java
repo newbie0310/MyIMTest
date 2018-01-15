@@ -17,7 +17,6 @@ import cn.bmob.v3.BmobUser;
 /**
  * @author :smile
  * @project:ChatAdapter
- * @date :2016-01-22-14:18
  */
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 

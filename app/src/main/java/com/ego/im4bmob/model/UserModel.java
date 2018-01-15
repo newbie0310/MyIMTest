@@ -34,7 +34,6 @@ import cn.bmob.v3.listener.UpdateListener;
 /**
  * @author :smile
  * @project:UserModel
- * @date :2016-01-22-18:09
  */
 public class UserModel extends BaseModel {
 

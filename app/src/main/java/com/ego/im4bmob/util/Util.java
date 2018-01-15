@@ -3,7 +3,6 @@ package com.ego.im4bmob.util;
 /**
  * @author smile
  * @project Util
- * @date 2016-03-01-14:55
  */
 public class Util {
     public static boolean checkSdCard() {

@@ -19,7 +19,6 @@ import com.ego.im4bmob.db.NewFriendManager;
  *
  * @author :smile
  * @project:ContactNewAdapter
- * @date :2016-04-27-14:18
  */
 public class ContactAdapter extends BaseRecyclerAdapter<Friend> {
 

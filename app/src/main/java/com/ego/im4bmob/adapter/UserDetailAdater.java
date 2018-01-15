@@ -19,10 +19,6 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by zaXie on 2018/1/10.
- */
-
 public class UserDetailAdater extends BaseAdapter {
 
     private List<UserBaseInfo> userBaseInfoList;

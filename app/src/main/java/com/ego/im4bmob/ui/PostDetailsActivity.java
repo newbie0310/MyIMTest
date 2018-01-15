@@ -51,9 +51,6 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.PushListener;
 
-/**
- * Created on 17/8/31 16:53
- */
 
 public class PostDetailsActivity extends BaseActivity implements PostDetailsView {
 

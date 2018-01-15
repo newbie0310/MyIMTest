@@ -8,9 +8,6 @@ import com.ego.im4bmob.mvp.model.BmobModel;
 import com.ego.im4bmob.mvp.view.ShowPostsView;
 import rx.functions.Action1;
 
-/**
- * Created on 17/8/31 17:47
- */
 
 public class ShowPostPresenter {
     private ShowPostsView mShowPostsView;

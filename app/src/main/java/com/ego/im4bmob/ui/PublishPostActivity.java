@@ -20,9 +20,6 @@ import com.ego.im4bmob.mvp.presenter.PublishPostPresenter;
 import com.ego.im4bmob.mvp.view.PublishPostView;
 import com.ego.im4bmob.util.BmobUtils;
 
-/**
- * Created on 17/8/31 16:54
- */
 
 public class PublishPostActivity extends BaseActivity implements PublishPostView {
 

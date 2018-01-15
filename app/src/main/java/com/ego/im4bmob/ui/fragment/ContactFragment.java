@@ -52,7 +52,6 @@ import cn.bmob.v3.listener.UpdateListener;
  *
  * @author :smile
  * @project:ContactFragment
- * @date :2016-04-27-14:23
  */
 public class ContactFragment extends ParentWithNaviFragment {
 

@@ -14,7 +14,6 @@ import com.ego.im4bmob.R;
 
 /**
  * @author deadline
- * @time 2016/10/22
  */
 public class SimpleFooterView extends BaseFooterView {
 

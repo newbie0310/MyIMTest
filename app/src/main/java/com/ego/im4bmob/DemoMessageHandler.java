@@ -37,7 +37,6 @@ import cn.bmob.v3.listener.SaveListener;
  *
  * @author smile
  * @project DemoMessageHandler
- * @date 2016-03-08-17:37
  */
 //TODO 集成：1.6、自定义消息接收器处理在线消息和离线消息
 //TODO 消息接收：8.1、自定义全局消息接收器

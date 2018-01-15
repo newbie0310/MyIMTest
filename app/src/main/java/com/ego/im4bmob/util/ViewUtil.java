@@ -11,7 +11,6 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 /**
  * @author :smile
  * @project:ViewUtil
- * @date :2016-01-25-9:57
  */
 public class ViewUtil {
 

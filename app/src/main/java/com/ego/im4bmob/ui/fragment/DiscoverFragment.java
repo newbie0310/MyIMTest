@@ -37,9 +37,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created on 17/9/12 21:26
- */
 
 public class DiscoverFragment extends ParentWithNaviFragment implements ShowPostsView {
 

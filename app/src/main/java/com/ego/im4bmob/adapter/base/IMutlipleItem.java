@@ -2,9 +2,6 @@ package com.ego.im4bmob.adapter.base;
 
 import java.util.List;
 
-/**
- * Created by Administrator on 2016/5/6.
- */
 public interface IMutlipleItem<T> {
 
     /**

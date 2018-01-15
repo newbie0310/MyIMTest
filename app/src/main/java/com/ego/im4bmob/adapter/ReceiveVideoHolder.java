@@ -22,7 +22,7 @@ import cn.bmob.newim.bean.BmobIMUserInfo;
 import cn.bmob.v3.datatype.BmobFile;
 
 /**
- * 接收到的视频类型--这是举个例子，并没有展示出视频缩略图等信息，开发者可自行设置
+ * 接收到的视频类型
  */
 public class ReceiveVideoHolder extends BaseViewHolder {
 

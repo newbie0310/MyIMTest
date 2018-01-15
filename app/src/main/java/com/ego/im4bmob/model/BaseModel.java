@@ -7,7 +7,6 @@ import com.ego.im4bmob.BmobIMApplication;
 /**
  * @author :smile
  * @project:BaseModel
- * @date :2016-01-23-10:37
  */
 public abstract class BaseModel {
 

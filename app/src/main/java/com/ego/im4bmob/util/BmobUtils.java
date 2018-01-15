@@ -8,9 +8,6 @@ import android.widget.Toast;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created on 17/7/4 18:13
- */
 
 public class BmobUtils {
     public static final String SMS_TEMPLATE = "smscode";

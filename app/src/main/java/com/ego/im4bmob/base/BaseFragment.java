@@ -19,7 +19,6 @@ import org.polaric.colorful.Colorful;
 /**基类
  * @author :smile
  * @project:BaseActivity
- * @date :2016-01-15-18:23
  */
 public class BaseFragment extends Fragment {
 

@@ -14,9 +14,6 @@ import cn.bmob.v3.AsyncCustomEndpoints;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.CloudCodeListener;
 
-/**
- * Created on 17/6/21 15:34
- */
 
 public class Notify {
 

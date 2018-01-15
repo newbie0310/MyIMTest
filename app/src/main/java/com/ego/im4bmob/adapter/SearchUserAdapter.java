@@ -12,7 +12,6 @@ import com.ego.im4bmob.bean.User;
 /**
  * @author :smile
  * @project:SearchUserAdapter
- * @date :2016-01-22-14:18
  */
 public class SearchUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 

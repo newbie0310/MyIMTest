@@ -30,7 +30,6 @@ import cn.bmob.v3.listener.FindListener;
  *
  * @author :smile
  * @project:SearchUserActivity
- * @date :2016-01-25-18:23
  */
 public class SearchUserActivity extends ParentWithNaviActivity {
 

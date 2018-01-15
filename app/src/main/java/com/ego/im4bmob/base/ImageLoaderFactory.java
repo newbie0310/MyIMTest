@@ -1,8 +1,5 @@
 package com.ego.im4bmob.base;
 
-/**
- * Created by Administrator on 2016/5/24.
- */
 public class ImageLoaderFactory {
 
     private static volatile ILoader sInstance;

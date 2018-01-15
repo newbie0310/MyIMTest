@@ -2,7 +2,6 @@ package com.ego.im4bmob.widget.footerView;
 
 /**
  * @author deadline
- * @time 2016/10/22
  */
 public interface FooterViewListener {
 

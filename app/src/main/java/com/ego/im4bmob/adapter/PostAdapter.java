@@ -20,9 +20,6 @@ import com.ego.im4bmob.R;
 import com.ego.im4bmob.mvp.bean.Post;
 import com.ego.im4bmob.ui.PostDetailsActivity;
 
-/**
- * Created on 17/8/31 18:23
- */
 
 public class PostAdapter extends RecyclerView.Adapter {
 

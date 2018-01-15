@@ -43,7 +43,6 @@ import cn.bmob.newim.event.OfflineMessageEvent;
 /**会话界面
  * @author :smile
  * @project:ConversationFragment
- * @date :2016-01-25-18:23
  */
 public class ConversationFragment extends ParentWithNaviFragment {
 

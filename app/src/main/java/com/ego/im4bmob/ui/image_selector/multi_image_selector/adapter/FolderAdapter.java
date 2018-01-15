@@ -18,8 +18,6 @@ import java.util.List;
 
 /**
  * 文件夹Adapter
- * Created by Nereo on 2015/4/7.
- * Updated by nereo on 2016/1/19.
  */
 public class FolderAdapter extends BaseAdapter {
 

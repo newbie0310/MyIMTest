@@ -24,7 +24,6 @@ import com.ego.im4bmob.widget.footerView.SimpleFooterView;
 
 /**
  * @auther deadline
- * @time   2016/10/22
  * SwipeRefreshLayout + recyclerView
  */
 public class SwipeRecyclerView extends FrameLayout

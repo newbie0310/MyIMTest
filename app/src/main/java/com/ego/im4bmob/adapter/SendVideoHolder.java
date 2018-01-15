@@ -25,7 +25,7 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 
 /**
- * 发送的视频类型---这是举个例子，并没有展示出视频缩略图等信息，开发者可自行实现
+ * 发送的视频类型
  */
 public class SendVideoHolder extends BaseViewHolder implements View.OnClickListener,View.OnLongClickListener {
 

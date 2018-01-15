@@ -3,9 +3,6 @@ package com.ego.im4bmob.event;
 
 import com.ego.im4bmob.mvp.bean.Comment;
 
-/**
- * Created on 17/9/1 17:41
- */
 
 public class DeleteCommentEvent {
 

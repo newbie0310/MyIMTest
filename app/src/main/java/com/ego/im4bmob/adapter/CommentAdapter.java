@@ -24,9 +24,6 @@ import com.ego.im4bmob.event.ReplyToEvent;
 import com.ego.im4bmob.mvp.bean.Comment;
 import cn.bmob.v3.BmobUser;
 
-/**
- * Created on 17/9/1 12:08
- */
 
 public class CommentAdapter extends RecyclerView.Adapter {
 

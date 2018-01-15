@@ -33,7 +33,6 @@ import cn.bmob.v3.listener.SaveListener;
 /**
  * @author :smile
  * @project:NewFriendAdapter
- * @date :2016-04-27-14:18
  */
 public class NewFriendAdapter extends BaseRecyclerAdapter<NewFriend> {
 

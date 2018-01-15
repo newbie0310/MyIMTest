@@ -19,7 +19,6 @@ import cn.bmob.v3.exception.BmobException;
 /**
  * @author :smile
  * @project:BmobIMApplication
- * @date :2016-01-13-10:19
  */
 //TODO 集成：1.7、自定义Application，并在AndroidManifest.xml中配置
 public class BmobIMApplication extends Application {

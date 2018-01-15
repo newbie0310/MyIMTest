@@ -6,9 +6,6 @@ import java.util.List;
 import com.ego.im4bmob.mvp.bean.Comment;
 import com.ego.im4bmob.mvp.bean.Love;
 
-/**
- * Created on 17/8/31 17:14
- */
 
 public interface PostDetailsView extends BmobView{
     //评论相关

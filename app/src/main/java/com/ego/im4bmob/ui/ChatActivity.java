@@ -84,7 +84,6 @@ import static com.ego.im4bmob.ui.image_selector.multi_image_selector.MultiImageS
  *
  * @author :smile
  * @project:ChatActivity
- * @date :2016-01-25-18:23
  */
 public class ChatActivity extends ParentWithNaviActivity implements MessageListHandler {
 
